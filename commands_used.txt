@@ -1,0 +1,56 @@
+LINUX TASK 03 - COMMANDS USED
+=============================
+
+### PART 1: NEW USER SETUP ###
+# (as admin user)
+sudo useradd -m -s /bin/bash forensic01
+sudo usermod -aG sudo forensic01
+sudo passwd forensic01
+id forensic01
+
+# switch user
+su - forensic01
+whoami
+
+# create directory and log file (as forensic01)
+mkdir -p /home/forensic01/logs/
+cd /home/forensic01/logs/
+cat > sys_events.log << 'LOGEOF'
+(14 mock log lines - see scripts/part1b_create_logs.sh)
+LOGEOF
+echo "2026-11-09 08:20:14 INFO  root created backup of /etc" >> sys_events.log
+(7 more echo ... >> sys_events.log lines)
+ls -l
+wc -l sys_events.log
+
+### PART 2: LOG FILTERING & ANALYSIS ###
+grep "ERROR" sys_events.log
+grep -E "root|user01" sys_events.log
+grep "ERROR" sys_events.log | less
+grep -E "root|user01" sys_events.log | less
+grep "ERROR" sys_events.log > error_report.txt
+echo "---- lines mentioning root or user01 ----" >> error_report.txt
+grep -E "root|user01" sys_events.log >> error_report.txt
+cat error_report.txt
+head -n 5 sys_events.log
+tail -n 5 sys_events.log
+cat sys_events.log
+
+### PART 3: PERMISSIONS & OWNERSHIP ###
+echo "TOP SECRET: forensic case notes" > confidential.txt
+chmod 600 confidential.txt
+ls -l confidential.txt
+sudo chown root confidential.txt
+ls -l confidential.txt
+cat confidential.txt
+echo "new line" >> confidential.txt
+sudo cat confidential.txt
+
+### PART 4: USER MANAGEMENT ###
+sudo useradd -m guest1
+sudo useradd -m guest2
+sudo usermod -aG sudo guest1
+id guest1
+sudo userdel -r guest2
+getent passwd guest2
+ls /home

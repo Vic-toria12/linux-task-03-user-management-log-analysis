@@ -1,0 +1,14 @@
+. What the commands do
+grep
+- grep is used to search for specific words, patterns, or text inside a file.
+- It helps identify important information, such as ERROR or WARNING messages in log files.
+chown
+- chown means change owner.
+- It is used to change the ownership of a file or directory from one user to another.
+usermod
+- usermod is used to modify an existing user account in Linux.
+- It can change a user's group membership, username, home directory, and other account settings.
+2. What I learned from trying to access confidential.txt after changing its ownership
+I learned that file ownership and permissions determine who can access a file in Linux. Changing the ownership of confidential.txt to another user can prevent the previous owner from accessing it, depending on the file's permissions.
+
+I also learned that being able to see a file does not automatically mean you have permission to read or modify it. Linux uses ownership and permission settings to protect confidential information from unauthorized access.

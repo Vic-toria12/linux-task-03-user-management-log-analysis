@@ -1,0 +1,45 @@
+name: Linux Task 03 - run exercise
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  run-task:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare scripts
+        run: |
+          mkdir -p ci_out
+          cp scripts/*.sh /tmp/ && chmod 755 /tmp/*.sh
+
+      - name: Part 1a - create forensic01 (disposable runner)
+        env:
+          FORENSIC_PASS: Practice#123
+        run: bash /tmp/part1a_create_user.sh 2>&1 | tee ci_out/part1a_output.txt
+
+      - name: CI only - let forensic01 use sudo without a prompt
+        run: |
+          echo "forensic01 ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/forensic01
+          sudo chmod 440 /etc/sudoers.d/forensic01
+
+      - name: Part 1b - logs
+        run: sudo -u forensic01 -H bash /tmp/part1b_create_logs.sh 2>&1 | tee ci_out/part1b_output.txt
+
+      - name: Part 2 - log analysis
+        run: sudo -u forensic01 -H bash /tmp/part2_log_analysis.sh 2>&1 | tee ci_out/part2_output.txt
+
+      - name: Part 3 - permissions
+        run: sudo -u forensic01 -H bash /tmp/part3_permissions.sh 2>&1 | tee ci_out/part3_output.txt
+
+      - name: Part 4 - user management
+        run: sudo -u forensic01 -H bash /tmp/part4_user_management.sh 2>&1 | tee ci_out/part4_output.txt
+
+      - name: Upload outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: terminal-outputs
+          path: ci_out/

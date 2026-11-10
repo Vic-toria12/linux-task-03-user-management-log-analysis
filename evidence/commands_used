@@ -1,0 +1,37 @@
+    1  echo $SHELL 
+    2  sudo cat /etc/passwd
+    3  clear
+    4  pwd
+    5  mkdir logs
+    6  ls
+    7  cd logs
+    8  pwd
+    9  ls
+   10  cat > sys_events.log << 'EOF'\n2026-11-10 08:00:01 INFO System boot completed successfully\n2026-11-10 08:01:15 INFO user01 logged into the system\n2026-11-10 08:02:30 WARNING High CPU usage detected\n2026-11-10 08:03:45 ERROR Failed to connect to database\n2026-11-10 08:04:10 INFO root executed system update\n2026-11-10 08:05:22 INFO Network connection established\n2026-11-10 08:06:35 WARNING Low disk space detected\n2026-11-10 08:07:40 ERROR Unauthorized access attempt detected\n2026-11-10 08:08:55 INFO user01 accessed home directory\n2026-11-10 08:09:12 INFO Backup process started\n2026-11-10 08:10:25 ERROR Backup process failed\n2026-11-10 08:11:30 WARNING Multiple failed login attempts\n2026-11-10 08:12:45 INFO root checked system logs\n2026-11-10 08:13:50 INFO Firewall service started\n2026-11-10 08:14:05 ERROR Permission denied for user01\n2026-11-10 08:15:20 WARNING Suspicious network activity detected\n2026-11-10 08:16:35 INFO Software installation completed\n2026-11-10 08:17:40 ERROR Authentication failure for root\n2026-11-10 08:18:55 INFO user01 logged out successfully\n2026-11-10 08:19:10 INFO System monitoring service running\nEOF
+   11  ls
+   12  grep "ERROR" sys_events.log\n
+   13  grep -E "root|user01" sys_events.log\n               
+   14  grep "ERROR" sys_events.log | less
+   15  grep -E "root|user01" sys_events.log | less\n               
+   16  grep  "ERROR" sys_events.log | less > error_report.txt\n               
+   17  ls
+   18  head -n5 sys_events.log 
+   19  tail -n5 sys_events.log 
+   20  cat > sys_events.log
+   21  cat sys_event.log
+   22  cat sys_events.log
+   23  touch confidendial.txt
+   24  ls -l confidential.txt
+   25  ls -l confidendial.txt 
+   26  chmod g-rw,o-r confidendial.txt
+   27  ls -l confidendial.txt 
+   28  sudo chown root confidendial.txt
+   29  ls -l confidendial.txt 
+   30  whoami
+   31  nano confidendial.txt
+   32  sudo useradd guest1
+   33  sudo useradd guest2
+   34  sudo usermod -aG sudo guest1
+   35  sudo userdel guest2
+   36  sudo cat /etc/passwd
+   37  history
